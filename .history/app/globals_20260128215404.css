@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+
+  --animate-fade-in: fade-in 1s ease-in forwards;
+}
+
+@layer base {
+  /* Light Theme */
+  :root {
+    --background: #f8f8ff; /* Ghost White */
+    --foreground: #080808; /* Vampire Black */
+
+    --primary: #0000cd; /* Medium Blue */
+    --secondary: #ba55d3; /* Medium Orchid */
+  }
+
+  /* Dark Theme */
+  .dark {
+    --background: #080808; /* Vampire Black */
+    --foreground: #f8f8ff; /* Ghost White */
+
+    --primary: #ff0800; /* Candy Apple Red */
+    --secondary: #fefc22; /* Laser Lemon */
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+}

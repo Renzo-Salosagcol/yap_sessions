@@ -135,5 +135,5 @@
 }
 
 @utility gradient-border {
-  @apply bg-linear-to-r from-primary to-secondary rounded-xl m-0 p-0.5;
+  @apply bg-linear-to-r from-primary to-secondary;
 }

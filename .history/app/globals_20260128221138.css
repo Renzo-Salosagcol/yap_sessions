@@ -129,11 +129,3 @@
 @utility gradient-text {
   @apply bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent;
 }
-
-@utility gradient {
-  @apply bg-linear-to-r from-primary to-secondary;
-}
-
-@utility gradient-border {
-  @apply bg-linear-to-r from-primary to-secondary rounded-xl m-0 p-0.5;
-}

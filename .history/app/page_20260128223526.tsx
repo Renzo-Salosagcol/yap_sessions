@@ -26,14 +26,11 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 
-import { LoginForm } from "@/components/loginForm";
-import { RegisterForm } from "@/components/registerForm";
-
 export default function Home() {
   return (
     <main className="root-page-element">
-      <div className="min-w-1/2 gradient-border">
-        <Card className="w-full h-full">
+      <div className="min-w-1/2 p-8 gradient-border">
+        <Card className="w-full">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">
               Welcome to  
@@ -62,10 +59,10 @@ export default function Home() {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="login">
-                <LoginForm />
+                Login
               </TabsContent>
               <TabsContent value="register">
-                <RegisterForm />
+                Register
               </TabsContent>
             </Tabs>
           </CardContent>
