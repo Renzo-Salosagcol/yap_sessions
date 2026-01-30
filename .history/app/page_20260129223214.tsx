@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/tabs";
 
 import { LoginForm } from "@/components/loginForm";
-import { RegisterForm } from "@/components/registerForm";
 
 import { FormEvent } from "react";
 
@@ -57,7 +56,7 @@ export default function Home() {
                 <LoginForm />
               </TabsContent>
               <TabsContent value="register">
-                <RegisterForm />
+                Register
               </TabsContent>
             </Tabs>
           </CardContent>

@@ -21,7 +21,7 @@ export const LoginForm = () => {
     event.preventDefault()
 
     const loginData = new FormData(event.currentTarget)
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/api/login', {
       method: 'POST',
       body: loginData
     })
@@ -38,14 +38,12 @@ export const LoginForm = () => {
           <Field>
             <FieldLabel htmlFor="email">Email Address</FieldLabel>
             <Input id="email" name="email" type="email" required />
-            <FieldError>Valid email is required.</FieldError>
           </Field>
         </FieldGroup>
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="password">Password</FieldLabel>
             <Input id="password" name="password" type="password" required />
-            <FieldError>Password is required.</FieldError>
           </Field>
         </FieldGroup>
         <FieldSeparator />

@@ -16,14 +16,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const loginData = new FormData(event.currentTarget)
-    const response = await fetch('/api/auth/login', {
+    const registerData = new FormData(event.currentTarget)
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
-      body: loginData
+      body: registerData
     })
 
     // Handle the response as needed
@@ -39,6 +39,13 @@ export const LoginForm = () => {
             <FieldLabel htmlFor="email">Email Address</FieldLabel>
             <Input id="email" name="email" type="email" required />
             <FieldError>Valid email is required.</FieldError>
+          </Field>
+        </FieldGroup>
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="username">Username</FieldLabel>
+            <Input id="username" name="username" type="text" required />
+            <FieldError>Username is required.</FieldError>
           </Field>
         </FieldGroup>
         <FieldGroup>

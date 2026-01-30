@@ -21,7 +21,7 @@ export const LoginForm = () => {
     event.preventDefault()
 
     const loginData = new FormData(event.currentTarget)
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/api/login', {
       method: 'POST',
       body: loginData
     })

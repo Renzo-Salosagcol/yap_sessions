@@ -10,18 +10,47 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+  FieldTitle,
+} from "@/components/ui/field";
+import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 import { LoginForm } from "@/components/loginForm";
-import { RegisterForm } from "@/components/registerForm";
 
 import { FormEvent } from "react";
 
 export default function Home() {
+  async function loginSubmit(event: FormEvent<HTMLFormElement>) {
+      event.preventDefault()
+  
+      const loginData = new FormData(event.currentTarget)
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        body: loginData
+      })
+  
+      // Handle the response as needed
+      const data = await response.json()
+      // ...
+    }
+
+
   return (
     <main className="root-page-element">
       <div className="min-w-1/2 gradient-border">
@@ -57,7 +86,7 @@ export default function Home() {
                 <LoginForm />
               </TabsContent>
               <TabsContent value="register">
-                <RegisterForm />
+                Register
               </TabsContent>
             </Tabs>
           </CardContent>
