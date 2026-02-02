@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 
 import {
   Field,
@@ -37,11 +37,11 @@ export const LoginForm = () => {
 
     if (!response.ok) {
       // Handle error response
-      console.error("Login failed")
+      console.error("Login failed:", response.statusText)
       return
     } else {
-      const data = await response.json()
-      console.log(data.user)
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login successful")
       router.push('/home')
     }
 

@@ -37,11 +37,10 @@ export const LoginForm = () => {
 
     if (!response.ok) {
       // Handle error response
-      console.error("Login failed")
+      console.error("Login failed:", response.statusText)
       return
     } else {
-      const data = await response.json()
-      console.log(data.user)
+      console.log("Login successful")
       router.push('/home')
     }
 

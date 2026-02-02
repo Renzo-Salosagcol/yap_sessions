@@ -1,6 +1,6 @@
 import { FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { redirect } from 'next/navigation';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import {
   Field,
@@ -17,34 +17,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { sign } from "crypto";
 
-export const LoginForm = () => {
-  const router = useRouter();
-
+export const RegisterForm = () => {
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const loginData = new FormData(event.currentTarget)
-    const response = await fetch('/api/auth/login', {
+    const registerData = new FormData(event.currentTarget)
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type' : 'application/json' },
       body: JSON.stringify({
-        email: loginData.get('email'),
-        password: loginData.get('password'),
+        email: registerData.get('email'),
+        username: registerData.get('username'),
+        password: registerData.get('password'),
       }),
     })
 
     if (!response.ok) {
       // Handle error response
-      console.error("Login failed")
+      console.error("Registration failed:", response.statusText)
       return
     } else {
-      const data = await response.json()
-      console.log(data.user)
-      router.push('/home')
+      console.log("Registration successful")
+      redirect('/home/home')
     }
-
   }
 
   return (
@@ -59,6 +55,13 @@ export const LoginForm = () => {
         </FieldGroup>
         <FieldGroup>
           <Field>
+            <FieldLabel htmlFor="username">Username</FieldLabel>
+            <Input id="username" name="username" type="text" required />
+            <FieldError>Username is required.</FieldError>
+          </Field>
+        </FieldGroup>
+        <FieldGroup>
+          <Field>
             <FieldLabel htmlFor="password">Password</FieldLabel>
             <Input id="password" name="password" type="password" required />
             <FieldError>Password is required.</FieldError>
@@ -66,7 +69,7 @@ export const LoginForm = () => {
         </FieldGroup>
         <FieldSeparator />
         <FieldGroup>
-          <Button type="submit">Login</Button>
+          <Button type="submit">Register</Button>
         </FieldGroup>
       </FieldSet>
     </form>

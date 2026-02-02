@@ -1,6 +1,5 @@
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import {
   Field,
@@ -17,7 +16,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { sign } from "crypto";
 
 export const LoginForm = () => {
   const router = useRouter();
@@ -37,11 +35,10 @@ export const LoginForm = () => {
 
     if (!response.ok) {
       // Handle error response
-      console.error("Login failed")
+      console.error("Login failed:", response.statusText)
       return
     } else {
-      const data = await response.json()
-      console.log(data.user)
+      console.log("Login successful")
       router.push('/home')
     }
 

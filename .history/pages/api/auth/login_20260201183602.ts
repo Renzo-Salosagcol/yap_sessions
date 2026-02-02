@@ -9,7 +9,7 @@ export default async function handler(
     const { email, password } = req.body;
     const user = await signInWithEmailAndPassword(auth, email, password);
 
-    res.status(200).json({ user });
+    res.status(200).json({ message: 'Login successful', user });
     return;
   } catch (error) {
     if (error == 'CredentialsSignin') {

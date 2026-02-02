@@ -17,7 +17,7 @@ export default async function handler(
 ) {
   const data = schema.parse(req.body)
 
-  const auth = getAuth(app);
+  const auth = getAuth();
 
   createUserWithEmailAndPassword(auth, data.email, data.password)
     .then((userCredential) => {

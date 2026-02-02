@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { app } from '../firebase';
+import { app, getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { z } from 'zod'
 import { create } from 'domain';
 
@@ -17,7 +16,7 @@ export default async function handler(
 ) {
   const data = schema.parse(req.body)
 
-  const auth = getAuth(app);
+  const auth = getAuth();
 
   createUserWithEmailAndPassword(auth, data.email, data.password)
     .then((userCredential) => {
