@@ -3,7 +3,6 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { SidebarTrigger } from "@/components/sidebarTrigger"
 import { AppSidebar } from "@/components/appSidebar"
 import { WelcomePage } from "@/components/welcome";
-import { ChatPage } from "@/components/chat";
 
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../../pages/api/firebase';
@@ -27,10 +26,10 @@ export default function Home() {
   return (
     <main className="root-page-element flex items-center justify-center w-full">
       <SidebarProvider className="absolute top-0 left-0 h-full">
-        <AppSidebar activeChat={activeChat} setActiveChat={setActiveChat} />
+        <AppSidebar />
         <SidebarTrigger />
       </SidebarProvider>
-      {activeChat ? <ChatPage activeChat={activeChat} /> : <WelcomePage />}
+      <WelcomePage />
     </main>
   )
 }

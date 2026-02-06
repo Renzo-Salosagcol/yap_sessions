@@ -30,7 +30,7 @@ const testChats = [
   { id: 10, name: "Chat 10", recents: {message: "Best wishes!", time: "7:00 PM", user: "user 10"} }
 ]
 
-export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number | null, setActiveChat: (chatId: number) => void }) {
+export function AppSidebar({ activeChat }) {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   
@@ -63,9 +63,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
       <SidebarContent className="bg-background w-full h-full p-1">
         {testChats.map((chat) => (
           <SidebarGroup key={chat.id} className="gradient-border p-1/2 mx-auto">
-            <Button className="w-full rounded-xl flex flex-col items-center justify-center bg-background hover:bg-background text-foreground py-8"
-            onClick={() => setActiveChat(chat.id)}
-            >
+            <Button className="w-full rounded-xl flex flex-col items-center justify-center bg-background hover:bg-background text-foreground py-8">
               <div className="flex flex-row justify-between w-full">
                 <div className="">
                   {chat.name}

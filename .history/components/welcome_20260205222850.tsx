@@ -1,0 +1,12 @@
+
+
+export const WelcomePage = () => {
+  return (
+    <div className="flex items-center text-center w-1/2 justify-center min-h-screen flex-col gap-4">
+      <h1 className="text-4xl font-semibold">Welcome to
+        <span className="gradient-text"> Yap Sessions</span>
+      </h1>
+      <h3>Start a conversation by pressing the button below or resume an ongoing conversation by choosing one from the sidebar.</h3>
+    </div>
+  )
+}

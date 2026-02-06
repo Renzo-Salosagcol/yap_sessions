@@ -30,7 +30,7 @@ const testChats = [
   { id: 10, name: "Chat 10", recents: {message: "Best wishes!", time: "7:00 PM", user: "user 10"} }
 ]
 
-export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number | null, setActiveChat: (chatId: number) => void }) {
+export function AppSidebar({ activeChat }) {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   

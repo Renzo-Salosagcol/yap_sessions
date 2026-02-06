@@ -3,7 +3,6 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { SidebarTrigger } from "@/components/sidebarTrigger"
 import { AppSidebar } from "@/components/appSidebar"
 import { WelcomePage } from "@/components/welcome";
-import { ChatPage } from "@/components/chat";
 
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../../pages/api/firebase';
@@ -30,7 +29,7 @@ export default function Home() {
         <AppSidebar activeChat={activeChat} setActiveChat={setActiveChat} />
         <SidebarTrigger />
       </SidebarProvider>
-      {activeChat ? <ChatPage activeChat={activeChat} /> : <WelcomePage />}
+      {activeChat ? <div>Active Chat: {activeChat}</div> : <WelcomePage />}
     </main>
   )
 }
