@@ -120,7 +120,7 @@ export function ChatPage({ activeChat }: { activeChat: number | null }) {
     <ScrollArea className="min-h-screen w-full flex flex-col items-center justify-between gap-4 p-2 py-0 pb-5 glassmorphism">
       <div className="w-full minh-screen h-full p-4 mr-4 bg-background rounded-lg shadow-lg overflow-y-auto">
         <h1 className="glassmorphism w-full fixed top-0 left-0 p-4 flex items-center justify-center">Active Chat: {activeChat}</h1>
-        <div className="min-h-screen h-full w-full flex flex-col gap-4 p-1 pt-10 pb-10">
+        <div className="min-h-screen h-full w-full flex flex-col gap-4 p-1 pt-10 pb-20">
           {
             testMessages.map((msg, index) => (
               <div className={`flex flex-col rounded-lg gap-2 w-full ${msg.user === activeUser ? 

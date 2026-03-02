@@ -6,6 +6,8 @@ import { useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../pages/api/firebase";
 
+const activeUser = "user 1";
+
 const testMessages = [
   {
     user: "user 1",
@@ -63,7 +65,7 @@ const testMessages = [
     time: "11:05 AM"
   },
   {
-    user: "Test Name",
+    user: "user 2",
     message: "I'm doing well, thanks for asking!",
     time: "11:10 AM"
   },
@@ -83,7 +85,7 @@ const testMessages = [
     time: "11:05 AM"
   },
   {
-    user: "test name",
+    user: "user 2",
     message: "I'm doing well, thanks for asking!",
     time: "11:10 AM"
   }
@@ -91,12 +93,10 @@ const testMessages = [
 
 export function ChatPage({ activeChat }: { activeChat: number | null }) {
   const [activeInput, setActiveInput] = useState("");
-  const [activeUser, setActiveUser] = useState<string | null>(null);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      setActiveUser(user.displayName);
-      console.log("Active user:", user.displayName);
+      setUser(user);
     }
   });
 
@@ -108,7 +108,7 @@ export function ChatPage({ activeChat }: { activeChat: number | null }) {
       method: 'POST',
       headers: { 'Content-Type' : 'application/json' },
         body: JSON.stringify({
-          user: activeUser,
+          user: "user 1",
           message: messageData.get('message'),
           time: new Date().toString()
         }),
@@ -120,13 +120,13 @@ export function ChatPage({ activeChat }: { activeChat: number | null }) {
     <ScrollArea className="min-h-screen w-full flex flex-col items-center justify-between gap-4 p-2 py-0 pb-5 glassmorphism">
       <div className="w-full minh-screen h-full p-4 mr-4 bg-background rounded-lg shadow-lg overflow-y-auto">
         <h1 className="glassmorphism w-full fixed top-0 left-0 p-4 flex items-center justify-center">Active Chat: {activeChat}</h1>
-        <div className="min-h-screen h-full w-full flex flex-col gap-4 p-1 pt-10 pb-10">
+        <div className="min-h-screen h-full w-full flex flex-col gap-4 p-1 pt-10">
           {
             testMessages.map((msg, index) => (
               <div className={`flex flex-col rounded-lg gap-2 w-full ${msg.user === activeUser ? 
                 "justify-end items-end" : 
                 "justify-start items-start"}`} key={index}>
-                <div className={`font-semibold ${msg.user === activeUser ? "gradient-text" : ""}`}>{msg.user}</div>
+                <div className={`font-semibold ${msg.user === activeUser ? "gradient-text" : ""}`}>{msg.user} test</div>
                 <div className={`rounded-lg p-2 ${msg.user === activeUser ? 
                 "gradient text-background flex flex-row justify-end" : 
                 "bg-foreground text-white self-start"}`} key={index} >

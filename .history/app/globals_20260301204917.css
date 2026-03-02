@@ -143,5 +143,5 @@
 }
 
 @utility hover-content {
-  @apply bg-red-900 text-background w-fit p-3 text-xs flex flex-col items-center justify-center rounded-lg;
+  @apply bg-foreground text-background max-w-full p-3 text-xs flex flex-col items-center justify-center rounded-lg;
 }
