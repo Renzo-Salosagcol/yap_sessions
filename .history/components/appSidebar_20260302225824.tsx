@@ -30,7 +30,6 @@ import {
   FieldSet,
   FieldTitle,
 } from "@/components/ui/field";
-import { Item } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button";
 import { app } from "@/pages/api/firebase";
@@ -185,12 +184,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                     Fill the information below to start a new chat session with your friends!
                   </DialogDescription>  
                 </DialogHeader>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.target as HTMLFormElement);
-                  const name = formData.get("name") as string;
-                  startNewChat(name, []);
-                }}>
+                <form onSubmit={(e) => }>
                   <FieldSet>
                     <FieldGroup>
                       <Field>

@@ -18,19 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldTitle,
-} from "@/components/ui/field";
-import { Item } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button";
 import { app } from "@/pages/api/firebase";
@@ -48,7 +35,6 @@ import { User } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Input } from "./ui/input";
-import { formErrorMessage } from "@/lib/utils";
 
 const testChats = [
   { id: 1, name: "Chat 1", recents: {message: "Hello there!", time: "10:00 AM", user: "user 1"} },
@@ -93,12 +79,6 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
   const searchChats = (query: string) => {
     const filteredChats = testChats.filter(chat => chat.name.toLowerCase().includes(query.toLowerCase()));
     setChats(filteredChats);
-  }
-
-  const startNewChat = (name: string, members: string[]) => {
-    console.log("Starting new chat with name:", name, "and members:", members);
-    // Here you would typically make an API call to create the new chat on the server
-    // For this example, we'll just log the information to the console
   }
 
   return (
@@ -177,29 +157,20 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                 <Plus size={16} />
               </Button>
             </DialogTrigger>
-            <DialogContent className="gradient-border border-0 p-1">
-              <div className="bg-background rounded-lg p-4 gap-4 flex flex-col">
+            <DialogContent className="m-0 p-0 rounded-cl">
+              <div className="gradient-border">
                 <DialogHeader>
                   <DialogTitle>Start a new chat</DialogTitle>
                   <DialogDescription>
-                    Fill the information below to start a new chat session with your friends!
+                    Enter the name of the chat you want to start.
                   </DialogDescription>  
                 </DialogHeader>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.target as HTMLFormElement);
-                  const name = formData.get("name") as string;
-                  startNewChat(name, []);
-                }}>
-                  <FieldSet>
-                    <FieldGroup>
-                      <Field>
-                        <FieldLabel htmlFor="name">Chat Name</FieldLabel>
-                        <Input id="name" className="col-span-3" required/>
-                      </Field>
-                    </FieldGroup>
-                  </FieldSet>
-                </form>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <label htmlFor="name" className="text-right">Chat Name</label>
+                    <Input id="name" className="col-span-3" />
+                  </div>
+                </div>
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button>Continue</Button>

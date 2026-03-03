@@ -30,7 +30,6 @@ import {
   FieldSet,
   FieldTitle,
 } from "@/components/ui/field";
-import { Item } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button";
 import { app } from "@/pages/api/firebase";
@@ -97,8 +96,6 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
 
   const startNewChat = (name: string, members: string[]) => {
     console.log("Starting new chat with name:", name, "and members:", members);
-    // Here you would typically make an API call to create the new chat on the server
-    // For this example, we'll just log the information to the console
   }
 
   return (
@@ -185,12 +182,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                     Fill the information below to start a new chat session with your friends!
                   </DialogDescription>  
                 </DialogHeader>
-                <form onSubmit={(e) => {
-                  e.preventDefault();
-                  const formData = new FormData(e.target as HTMLFormElement);
-                  const name = formData.get("name") as string;
-                  startNewChat(name, []);
-                }}>
+                <form onSubmit={(e) => }>
                   <FieldSet>
                     <FieldGroup>
                       <Field>
