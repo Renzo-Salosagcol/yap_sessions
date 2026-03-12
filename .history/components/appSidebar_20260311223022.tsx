@@ -166,7 +166,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
       <Separator className="m-0 p-0 shadow"/>
       <SidebarFooter className="bg-background p-2">
         <div className="flex flex-row items-center gap-2">
-          <div className="gradient-border w-full">
+          <div className="gradient-borderw-full">
             <Input id="search-message" type="text" placeholder="Search chats..." 
             className="w-full p-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary bg-background" 
             onChange={(e) => searchChats(e.target.value)}/>
@@ -189,20 +189,13 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                   e.preventDefault();
                   const formData = new FormData(e.target as HTMLFormElement);
                   const name = formData.get("name") as string;
-                  const members = formData.get("members") as string;
-                  startNewChat(name, members.split(",").map((m) => m.trim()));
+                  startNewChat(name, []);
                 }}>
                   <FieldSet>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="name">Chat Name</FieldLabel>
                         <Input id="name" className="col-span-3" required/>
-                      </Field>
-                    </FieldGroup>
-                    <FieldGroup>
-                      <Field>
-                        <FieldLabel htmlFor="members">Members (comma separated emails)</FieldLabel>
-                        <Input id="members" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                   </FieldSet>

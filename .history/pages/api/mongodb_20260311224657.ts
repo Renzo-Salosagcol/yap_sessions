@@ -1,6 +1,10 @@
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGO_DB_URI);
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+
+const client = new MongoClient(process.env.MONGO_DB_URI || "");
 
 async function run() {
   try {
@@ -10,8 +14,8 @@ async function run() {
     return console.error("Error connecting to MongoDB Atlas:", error);
   }
 
-  const database = client.db(process.env.MONGO_DB_DATABASE);
-  const collection = database.collection(process.env.MONGO_DB_COLLECTION);
+  const database = client.db(process.env.MONGO_DB_DATABASE || "");
+  const collection = database.collection(process.env.MONGO_DB_COLLECTION || "");
 }
 
 run();

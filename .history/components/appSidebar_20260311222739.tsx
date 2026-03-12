@@ -144,7 +144,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
       <Separator className="m-0 p-0 shadow"/>
       <SidebarContent className="bg-background w-full h-full p-1">
         {chats.map((chat) => (
-          <SidebarGroup key={chat.id} className="gradient-border p-0.5 mx-auto">
+          <SidebarGroup key={chat.id} className="gradient-border p-1/2 mx-auto">
             <Button className="w-full rounded-xl flex flex-col items-center justify-center bg-background hover:bg-background text-foreground py-8"
             onClick={() => setActiveChat(chat.id)}
             >
@@ -177,7 +177,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                 <Plus size={16} />
               </Button>
             </DialogTrigger>
-            <DialogContent className="gradient-border border-0 p-0.5">
+            <DialogContent className="gradient-border border-0">
               <div className="bg-background rounded-lg p-4 gap-4 flex flex-col">
                 <DialogHeader>
                   <DialogTitle>Start a new chat</DialogTitle>
@@ -189,20 +189,13 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                   e.preventDefault();
                   const formData = new FormData(e.target as HTMLFormElement);
                   const name = formData.get("name") as string;
-                  const members = formData.get("members") as string;
-                  startNewChat(name, members.split(",").map((m) => m.trim()));
+                  startNewChat(name, []);
                 }}>
                   <FieldSet>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="name">Chat Name</FieldLabel>
                         <Input id="name" className="col-span-3" required/>
-                      </Field>
-                    </FieldGroup>
-                    <FieldGroup>
-                      <Field>
-                        <FieldLabel htmlFor="members">Members (comma separated emails)</FieldLabel>
-                        <Input id="members" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                   </FieldSet>

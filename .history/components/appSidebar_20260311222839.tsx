@@ -189,20 +189,13 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                   e.preventDefault();
                   const formData = new FormData(e.target as HTMLFormElement);
                   const name = formData.get("name") as string;
-                  const members = formData.get("members") as string;
-                  startNewChat(name, members.split(",").map((m) => m.trim()));
+                  startNewChat(name, []);
                 }}>
                   <FieldSet>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="name">Chat Name</FieldLabel>
                         <Input id="name" className="col-span-3" required/>
-                      </Field>
-                    </FieldGroup>
-                    <FieldGroup>
-                      <Field>
-                        <FieldLabel htmlFor="members">Members (comma separated emails)</FieldLabel>
-                        <Input id="members" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                   </FieldSet>

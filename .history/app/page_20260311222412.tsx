@@ -23,7 +23,7 @@ import { FormEvent } from "react";
 
 export default function Home() {
   return (
-    <main className="root-page-element mx-40 my-auto">
+    <main className="root-page-element mx-20 py-20">
       <div className="gradient-border w-full h-full">
         <Card className="w-full h-fit">
           <CardHeader>
