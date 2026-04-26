@@ -28,7 +28,7 @@ export default function Home() {
 
   useEffect(() => {
     try {
-      const ws = new WebSocket("http://localhost:3002");
+      const ws = fetch("http://localhost:3002");
       console.log("WebSocket Connected");
     }
     catch (error) {

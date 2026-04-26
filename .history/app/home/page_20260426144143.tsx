@@ -17,24 +17,23 @@ export default function Home() {
   const [activeChat, setActiveChat] = useState<number | null>(null);
 
   useEffect(() => {
+    const ws = new WebSocket("ws://localhost:3002");
+    console.log("WebSocket Connected");
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setSignedIn(true);
       } else {
         setSignedIn(false);
       }
-    })
-  });
-
-  useEffect(() => {
-    try {
-      const ws = new WebSocket("http://localhost:3002");
-      console.log("WebSocket Connected");
     }
-    catch (error) {
-      console.error("WebSocket connection failed:", error);
-    }
-  }, []);
+  }), []);
   
   return (
     <main className="root-page-element flex items-center justify-center w-full">

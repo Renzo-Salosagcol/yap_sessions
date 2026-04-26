@@ -16,25 +16,18 @@ export default function Home() {
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [activeChat, setActiveChat] = useState<number | null>(null);
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setSignedIn(true);
-      } else {
-        setSignedIn(false);
-      }
-    })
-  });
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setSignedIn(true);
 
-  useEffect(() => {
-    try {
-      const ws = new WebSocket("http://localhost:3002");
-      console.log("WebSocket Connected");
+      useEffect(() => {
+        const ws = new WebSocket('ws://localhost:3002')
+        console.log("WebSocket Connected")
+      })
+    } else {
+      setSignedIn(false);
     }
-    catch (error) {
-      console.error("WebSocket connection failed:", error);
-    }
-  }, []);
+  })
   
   return (
     <main className="root-page-element flex items-center justify-center w-full">

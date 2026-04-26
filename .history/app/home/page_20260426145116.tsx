@@ -27,13 +27,12 @@ export default function Home() {
   });
 
   useEffect(() => {
-    try {
-      const ws = new WebSocket("http://localhost:3002");
-      console.log("WebSocket Connected");
-    }
-    catch (error) {
-      console.error("WebSocket connection failed:", error);
-    }
+    const ws = new WebSocket("wss://localhost:3002");
+    console.log("WebSocket Connected");
+
+    return () => {
+      ws.close();
+    };
   }, []);
   
   return (
