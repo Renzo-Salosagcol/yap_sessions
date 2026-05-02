@@ -40,10 +40,10 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json'
       }
-    }
-  );
+    });
     if (response.ok) {
       console.log(response);
+      resolve(response)
     } else {
       console.error("Form submission failed:", response.statusText);
     }

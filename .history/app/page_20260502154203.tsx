@@ -41,6 +41,8 @@ export default function Home() {
         'Content-Type': 'application/json'
       }
     }
+    
+    resolve(response)
   );
     if (response.ok) {
       console.log(response);

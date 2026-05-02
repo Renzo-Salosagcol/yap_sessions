@@ -20,9 +20,8 @@ import { LoginForm } from "@/components/loginForm";
 import { RegisterForm } from "@/components/registerForm";
 
 import { useState, useEffect, FormEvent } from "react";
-import { resolve } from "path";
 
-const EXPRESS_SERVER_URL = process.env.EXPRESS_SERVER_URL || "http://localhost:3001";
+const EXPRESS_SERVER_URL = process.env.EXPRESS_SERVER_URL;
 
 export default function Home() {
 
@@ -40,8 +39,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json'
       }
-    }
-  );
+    });
     if (response.ok) {
       console.log(response);
     } else {

@@ -20,9 +20,8 @@ import { LoginForm } from "@/components/loginForm";
 import { RegisterForm } from "@/components/registerForm";
 
 import { useState, useEffect, FormEvent } from "react";
-import { resolve } from "path";
 
-const EXPRESS_SERVER_URL = process.env.EXPRESS_SERVER_URL || "http://localhost:3001";
+const EXPRESS_SERVER = process.env.EXPRESS_SERVER;
 
 export default function Home() {
 
@@ -34,14 +33,13 @@ export default function Home() {
       username: username,
       test: "This is a test payload",
     };
-    const response = await fetch(EXPRESS_SERVER_URL.toString(), {
+    const response = await fetch(process.env.EXPRESS_SERVER, {
       method: 'POST',
       body: JSON.stringify({username}),
       headers: {
         'Content-Type': 'application/json'
       }
-    }
-  );
+    });
     if (response.ok) {
       console.log(response);
     } else {
