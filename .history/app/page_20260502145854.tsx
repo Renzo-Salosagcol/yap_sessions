@@ -23,24 +23,22 @@ import { useState, useEffect, FormEvent } from "react";
 import test from "node:test";
 
 export default function Home() {
+  const [data, setData] = useState<string>("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const username = formData.get('username');
     const payload = {
-      username: username,
       test: "This is a test payload",
-    };
+    }
     const response = await fetch('http://localhost:3001/', {
       method: 'POST',
-      body: JSON.stringify({username}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: JSON.stringify(payload),
     });
     if (response.ok) {
       console.log(response);
+      setData(await response.text());
     } else {
       console.error("Form submission failed:", response.statusText);
     }
@@ -87,6 +85,7 @@ export default function Home() {
             <form method="POST" onSubmit={handleSubmit}>
               <input type="text" placeholder="Username" id="test" name="username"></input>
               <button type="submit">Test</button>
+              <label>{data}</label>
             </form>
           </CardContent>
           <CardFooter></CardFooter>

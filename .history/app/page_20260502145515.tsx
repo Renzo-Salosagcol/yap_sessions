@@ -28,16 +28,10 @@ export default function Home() {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const username = formData.get('username');
-    const payload = {
-      username: username,
-      test: "This is a test payload",
-    };
+    const payload = JSON.stringify({ username });
     const response = await fetch('http://localhost:3001/', {
       method: 'POST',
-      body: JSON.stringify({username}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: payload,
     });
     if (response.ok) {
       console.log(response);

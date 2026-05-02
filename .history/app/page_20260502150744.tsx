@@ -34,7 +34,7 @@ export default function Home() {
     };
     const response = await fetch('http://localhost:3001/', {
       method: 'POST',
-      body: JSON.stringify({username}),
+      body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json'
       }

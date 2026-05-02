@@ -34,10 +34,7 @@ export default function Home() {
     };
     const response = await fetch('http://localhost:3001/', {
       method: 'POST',
-      body: JSON.stringify({username}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: JSON.stringify(payload),
     });
     if (response.ok) {
       console.log(response);
