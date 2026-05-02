@@ -19,13 +19,29 @@ import {
 import { LoginForm } from "@/components/loginForm";
 import { RegisterForm } from "@/components/registerForm";
 
-import { FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 
 export default function Home() {
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const username = formData.get('username');
+    const response = await fetch('http://localhost:3001/', {
+      method: 'POST',
+      body: JSON.stringify({ username }),
+    });
+    if (response.ok) {
+      console.log(response);
+    } else {
+      console.error("Form submission failed:", response.statusText);
+    }
+  }
+
   return (
-    <main className="root-page-element">
-      <div className="min-w-fit gradient-border">
-        <Card className="w-fit h-fit">
+    <main className="root-page-element mx-40 my-auto">
+      <div className="gradient-border w-full h-full">
+        <Card className="w-full h-fit">
           <CardHeader>
             <CardTitle className="text-2xl font-bold text-center">
               Welcome to  
@@ -60,6 +76,10 @@ export default function Home() {
                 <RegisterForm />
               </TabsContent>
             </Tabs>
+            <form method="POST" onSubmit={handleSubmit}>
+              <input type="text" placeholder="Username" id="test" name="username"></input>
+              <button type="submit">Test</button>
+            </form>
           </CardContent>
           <CardFooter></CardFooter>
         </Card>

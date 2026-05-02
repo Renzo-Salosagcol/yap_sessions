@@ -23,7 +23,7 @@ import { FormEvent } from "react";
 
 export default function Home() {
   return (
-    <main className="root-page-element mx-10 py-20">
+    <main className="root-page-element mx-40 my-auto">
       <div className="gradient-border w-full h-full">
         <Card className="w-full h-fit">
           <CardHeader>
@@ -60,6 +60,10 @@ export default function Home() {
                 <RegisterForm />
               </TabsContent>
             </Tabs>
+            <form method="POST">
+              <input type="text" placeholder="Username"></input>
+              <button type="submit">Test</button>
+            </form>
           </CardContent>
           <CardFooter></CardFooter>
         </Card>
