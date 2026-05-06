@@ -40,7 +40,7 @@ export default function Home() {
     };
     const response = await fetch(EXPRESS_SERVER_URL.toString(), {
       method: 'POST',
-      body: JSON.stringify({payload}),
+      body: JSON.stringify({username}),
       headers: {
         'Content-Type': 'application/json'
       }

@@ -22,13 +22,10 @@ import { Button } from "@/components/ui/button";
 
 import { useState, useEffect, FormEvent } from "react";
 import { resolve } from "path";
-import { redirect } from "next/dist/server/api-utils";
-import { useRouter } from "next/navigation";
 
 const EXPRESS_SERVER_URL = process.env.EXPRESS_SERVER_URL || "http://localhost:3001";
 
 export default function Home() {
-  const router = useRouter();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,7 +37,7 @@ export default function Home() {
     };
     const response = await fetch(EXPRESS_SERVER_URL.toString(), {
       method: 'POST',
-      body: JSON.stringify({payload}),
+      body: JSON.stringify({username}),
       headers: {
         'Content-Type': 'application/json'
       }
