@@ -12,6 +12,7 @@ import { ErrorPage } from "@/components/error"
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
 
+
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setIsSignedIn(true);
@@ -24,10 +25,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div>
       {isSignedIn ? (
         <main>
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarTrigger />
-          </SidebarProvider>
           {children}
         </main>
         ) : (

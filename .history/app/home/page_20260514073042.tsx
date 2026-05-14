@@ -9,9 +9,6 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../../pages/api/firebase';
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { socket } from "../../pages/api/socket";
-
-console.log("Socket instance in layout:", socket);
 
 export default function Home() {
   const router = useRouter();

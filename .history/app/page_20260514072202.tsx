@@ -24,6 +24,9 @@ import { useState, useEffect, FormEvent } from "react";
 import { resolve } from "path";
 import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
+import { io } from "socket.io-client";
+
+const EXPRESS_SERVER_URL = process.env.EXPRESS_SERVER_URL || "http://localhost:3001";
 
 export default function Home() {
   const router = useRouter();

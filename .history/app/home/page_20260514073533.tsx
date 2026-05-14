@@ -9,9 +9,11 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../../pages/api/firebase';
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { socket } from "../../pages/api/socket";
+import { io } from "socket.io-client";
 
-console.log("Socket instance in layout:", socket);
+const EXPRESS_SERVER_URL = process.env.EXPRESS_SERVER_URL || "https://localhost:3001";
+
+const socket = io(EXPRESS_SERVER_URL);
 
 export default function Home() {
   const router = useRouter();

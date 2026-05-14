@@ -11,8 +11,6 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { socket } from "../../pages/api/socket";
 
-console.log("Socket instance in layout:", socket);
-
 export default function Home() {
   const router = useRouter();
 
