@@ -8,14 +8,6 @@ socket.on("connect", () => {
   console.log("WebSocket Connected");
 });
 
-socket.on("welcome", (message) => {
-  console.log("Received welcome message from server:", message);
-});
-
 socket.on("connect_error", (error) => {
   console.error("WebSocket connection failed:", error);
 });
-
-export default function JoinRoom(roomId: string) {
-  socket.emit("joinRoom", roomId);
-}

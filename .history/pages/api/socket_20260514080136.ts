@@ -15,7 +15,3 @@ socket.on("welcome", (message) => {
 socket.on("connect_error", (error) => {
   console.error("WebSocket connection failed:", error);
 });
-
-export default function JoinRoom(roomId: string) {
-  socket.emit("joinRoom", roomId);
-}
