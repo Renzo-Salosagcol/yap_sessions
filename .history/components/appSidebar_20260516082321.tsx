@@ -92,13 +92,11 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
     event.preventDefault()
 
     const newChatData = new FormData(event.currentTarget)
-    const data = JSON.stringify({
-      name: newChatData.get('name'),
-      members: newChatData.get('members'),
-    })
+    const name = newChatData.get('name') as string
+    const members = (newChatData.get('members') as string).split(',').map((m) => m.trim())
 
-    console.log("Starting new chat with data:", data);
-    socket.emit("startNewChat", data);
+    console.log("Starting new chat with name:", name, "and members:", members);
+    socket.emit("startNewChat", { name, members });
   } 
 
   const handleProfile = () => {
@@ -199,20 +197,19 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="name">Chat Name</FieldLabel>
-                        <Input id="name" name="name" type="text" className="col-span-3" required/>
+                        <Input id="name" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="members">Members (comma separated emails)</FieldLabel>
-                        <Input id="members" name="members" type="text" className="col-span-3" required/>
+                        <Input id="members" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
-                    <FieldSeparator />
-                    <FieldGroup>
-                      <Button type="submit" className="gradient p-5 flex flex-row items-center gap-2" size="sm">Start Chat <Plus /></Button>
-                    </FieldGroup>
                   </FieldSet>
+                  <DialogClose asChild>
+                    <Button type="submit">Create New Chat</Button>
+                  </DialogClose>
                 </form>
               </div>
             </DialogContent>

@@ -91,14 +91,24 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
   async function startNewChat(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const newChatData = new FormData(event.currentTarget)
-    const data = JSON.stringify({
-      name: newChatData.get('name'),
-      members: newChatData.get('members'),
+    const registerData = new FormData(event.currentTarget)
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type' : 'application/json' },
+      body: JSON.stringify({
+        email: registerData.get('email'),
+        username: registerData.get('username'),
+        password: registerData.get('password'),
+      }),
     })
 
-    console.log("Starting new chat with data:", data);
-    socket.emit("startNewChat", data);
+    if (!response.ok) {
+      // Handle error response
+      console.error("Registration failed:", response.statusText)
+      return
+    } else {
+      console.log("Registration successful")
+    }
   } 
 
   const handleProfile = () => {
@@ -199,21 +209,22 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="name">Chat Name</FieldLabel>
-                        <Input id="name" name="name" type="text" className="col-span-3" required/>
+                        <Input id="name" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="members">Members (comma separated emails)</FieldLabel>
-                        <Input id="members" name="members" type="text" className="col-span-3" required/>
+                        <Input id="members" className="col-span-3" required/>
                       </Field>
-                    </FieldGroup>
-                    <FieldSeparator />
-                    <FieldGroup>
-                      <Button type="submit" className="gradient p-5 flex flex-row items-center gap-2" size="sm">Start Chat <Plus /></Button>
                     </FieldGroup>
                   </FieldSet>
                 </form>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button type="submit">Create New Chat</Button>
+                  </DialogClose>
+                </DialogFooter>
               </div>
             </DialogContent>
           </Dialog>

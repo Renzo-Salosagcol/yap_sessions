@@ -199,18 +199,18 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="name">Chat Name</FieldLabel>
-                        <Input id="name" name="name" type="text" className="col-span-3" required/>
+                        <Input id="name" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="members">Members (comma separated emails)</FieldLabel>
-                        <Input id="members" name="members" type="text" className="col-span-3" required/>
+                        <Input id="members" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                     <FieldSeparator />
                     <FieldGroup>
-                      <Button type="submit" className="gradient p-5 flex flex-row items-center gap-2" size="sm">Start Chat <Plus /></Button>
+                      <Button type="submit" variant="ghost" className="gradient p-5 flex flex-row items-center gap-2" size="sm">Start Chat <Plus /></Button>
                     </FieldGroup>
                   </FieldSet>
                 </form>

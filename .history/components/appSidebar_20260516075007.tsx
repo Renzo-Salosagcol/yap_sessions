@@ -46,11 +46,9 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../pages/api/firebase';
 import { User } from "lucide-react"
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { Input } from "./ui/input";
 import { formErrorMessage } from "@/lib/utils";
-import { socket } from "../pages/api/socket";
-import { start } from "repl";
 
 const testChats = [
   { id: 1, name: "Chat 1", recents: {message: "Hello there!", time: "10:00 AM", user: "user 1"} },
@@ -88,19 +86,6 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
     }
   };
 
-  async function startNewChat(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    const newChatData = new FormData(event.currentTarget)
-    const data = JSON.stringify({
-      name: newChatData.get('name'),
-      members: newChatData.get('members'),
-    })
-
-    console.log("Starting new chat with data:", data);
-    socket.emit("startNewChat", data);
-  } 
-
   const handleProfile = () => {
     router.push('/profile');
   }
@@ -108,6 +93,12 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
   const searchChats = (query: string) => {
     const filteredChats = testChats.filter(chat => chat.name.toLowerCase().includes(query.toLowerCase()));
     setChats(filteredChats);
+  }
+
+  const startNewChat = (name: string, members: string[]) => {
+    console.log("Starting new chat with name:", name, "and members:", members);
+    // Here you would typically make an API call to create the new chat on the server
+    // For this example, we'll just log the information to the console
   }
 
   return (
@@ -194,26 +185,33 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                     Fill the information below to start a new chat session with your friends!
                   </DialogDescription>  
                 </DialogHeader>
-                <form onSubmit={startNewChat}>
+                <form onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.target as HTMLFormElement);
+                  const name = formData.get("name") as string;
+                  const members = formData.get("members") as string;
+                  startNewChat(name, members.split(",").map((m) => m.trim()));
+                }}>
                   <FieldSet>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="name">Chat Name</FieldLabel>
-                        <Input id="name" name="name" type="text" className="col-span-3" required/>
+                        <Input id="name" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                     <FieldGroup>
                       <Field>
                         <FieldLabel htmlFor="members">Members (comma separated emails)</FieldLabel>
-                        <Input id="members" name="members" type="text" className="col-span-3" required/>
+                        <Input id="members" className="col-span-3" required/>
                       </Field>
-                    </FieldGroup>
-                    <FieldSeparator />
-                    <FieldGroup>
-                      <Button type="submit" className="gradient p-5 flex flex-row items-center gap-2" size="sm">Start Chat <Plus /></Button>
                     </FieldGroup>
                   </FieldSet>
                 </form>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button>Continue</Button>
+                  </DialogClose>
+                </DialogFooter>
               </div>
             </DialogContent>
           </Dialog>
