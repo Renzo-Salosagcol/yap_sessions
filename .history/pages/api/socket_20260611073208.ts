@@ -10,6 +10,7 @@ socket.on("connect", () => {
 
 socket.on("existingChats", (chats) => {
   console.log("Received existing chats from server:", chats);
+  existingChats.push(...chats);
 });
 
 socket.on("welcome", (message) => {
@@ -23,3 +24,5 @@ socket.on("connect_error", (error) => {
 export default function JoinRoom(roomId: string) {
   socket.emit("joinRoom", roomId);
 }
+
+export const existingChats: any[] = [];

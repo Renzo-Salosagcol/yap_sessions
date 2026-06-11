@@ -15,19 +15,7 @@ console.log("Socket instance in layout:", socket);
 
 export default function Home() {
   const router = useRouter();
-
-  const [signedIn, setSignedIn] = useState<boolean>(false);
   const [activeChat, setActiveChat] = useState<number | null>(null);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setSignedIn(true);
-      } else {
-        setSignedIn(false);
-      }
-    })
-  });
   
   return (
     <main className="root-page-element flex items-center justify-center w-full">

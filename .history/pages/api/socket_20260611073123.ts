@@ -10,6 +10,7 @@ socket.on("connect", () => {
 
 socket.on("existingChats", (chats) => {
   console.log("Received existing chats from server:", chats);
+  export const existingChats = chats;
 });
 
 socket.on("welcome", (message) => {

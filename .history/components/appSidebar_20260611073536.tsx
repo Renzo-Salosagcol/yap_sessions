@@ -49,20 +49,22 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { Input } from "./ui/input";
 import { formErrorMessage } from "@/lib/utils";
-import { socket } from "../pages/api/socket";
+import { socket, existingChats } from "../pages/api/socket";
 import { start } from "repl";
 
+console.log("Existing chats in AppSidebar:", existingChats);
+
 const testChats = [
-  { id: 1, title: "Chat 1", recents: {message: "Hello there!", time: "10:00 AM", user: "user 1"} },
-  { id: 2, title: "Chat 2", recents: {message: "How are you?", time: "11:00 AM", user: "user 2"} },
-  { id: 3, title: "Chat 3", recents: {message: "Goodbye!", time: "12:00 PM", user: "user 3"} },
-  { id: 4, title: "Chat 4", recents: {message: "See you later!", time: "1:00 PM", user: "user 4"} },
-  { id: 5, title: "Chat 5", recents: {message: "What's up?", time: "2:00 PM", user: "user 5"} },
-  { id: 6, title: "Chat 6", recents: {message: "Let's meet!", time: "3:00 PM", user: "user 6"} },
-  { id: 7, title: "Chat 7", recents: {message: "Happy Birthday!", time: "4:00 PM", user: "user 7"} },
-  { id: 8, title: "Chat 8", recents: {message: "Congratulations!", time: "5:00 PM", user: "user 8"} },
-  { id: 9, title: "Chat 9", recents: {message: "Good luck!", time: "6:00 PM", user: "user 9"} },
-  { id: 10, title: "Chat 10", recents: {message: "Best wishes!", time: "7:00 PM", user: "user 10"} }
+  { id: 1, name: "Chat 1", recents: {message: "Hello there!", time: "10:00 AM", user: "user 1"} },
+  { id: 2, name: "Chat 2", recents: {message: "How are you?", time: "11:00 AM", user: "user 2"} },
+  { id: 3, name: "Chat 3", recents: {message: "Goodbye!", time: "12:00 PM", user: "user 3"} },
+  { id: 4, name: "Chat 4", recents: {message: "See you later!", time: "1:00 PM", user: "user 4"} },
+  { id: 5, name: "Chat 5", recents: {message: "What's up?", time: "2:00 PM", user: "user 5"} },
+  { id: 6, name: "Chat 6", recents: {message: "Let's meet!", time: "3:00 PM", user: "user 6"} },
+  { id: 7, name: "Chat 7", recents: {message: "Happy Birthday!", time: "4:00 PM", user: "user 7"} },
+  { id: 8, name: "Chat 8", recents: {message: "Congratulations!", time: "5:00 PM", user: "user 8"} },
+  { id: 9, name: "Chat 9", recents: {message: "Good luck!", time: "6:00 PM", user: "user 9"} },
+  { id: 10, name: "Chat 10", recents: {message: "Best wishes!", time: "7:00 PM", user: "user 10"} }
 ]
 
 export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number | null, setActiveChat: (chatId: number) => void }) {
@@ -70,9 +72,9 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
   const [user, setUser] = useState<any>(null);
   const [chats, setChats] = useState(testChats);
 
-  socket.on("existingChats", (chats) => {
-    console.log("Received existing chats from server:", chats);
-    setChats(chats);
+  socket.on("connect", () => {
+    console.log("WebSocket Connected In AppSidebar");
+    setChats(existingChats);
   });
 
   const { toggleSidebar } = useSidebar()
@@ -98,7 +100,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
 
     const newChatData = new FormData(event.currentTarget)
     const data = JSON.stringify({
-      title: newChatData.get('title'),
+      name: newChatData.get('name'),
       members: newChatData.get('members'),
     })
 
@@ -111,7 +113,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
   }
 
   const searchChats = (query: string) => {
-    const filteredChats = testChats.filter(chat => chat.title.toLowerCase().includes(query.toLowerCase()));
+    const filteredChats = testChats.filter(chat => chat.name.toLowerCase().includes(query.toLowerCase()));
     setChats(filteredChats);
   }
 
@@ -164,8 +166,14 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
             >
               <div className="flex flex-row justify-between w-full">
                 <div className="">
-                  {chat.title}
+                  {chat.name}
                 </div>
+                <div>
+                  {chat.recents.time}
+                </div>
+              </div>
+              <div className="items-start w-full text-sm text-muted-background mt-0">
+                {chat.recents.user}: {chat.recents.message}
               </div>
             </Button>
           </SidebarGroup>
@@ -197,8 +205,8 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                   <FieldSet>
                     <FieldGroup>
                       <Field>
-                        <FieldLabel htmlFor="title">Chat Title</FieldLabel>
-                        <Input id="title" name="title" type="text" className="col-span-3" required/>
+                        <FieldLabel htmlFor="name">Chat Name</FieldLabel>
+                        <Input id="name" name="name" type="text" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                     <FieldGroup>

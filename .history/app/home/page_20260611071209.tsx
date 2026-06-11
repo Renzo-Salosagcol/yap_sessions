@@ -9,31 +9,13 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../../pages/api/firebase';
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { socket } from "../../pages/api/socket";
+
+console.log("Socket instance in layout:", socket);
 
 export default function Home() {
   const router = useRouter();
-
-  const [signedIn, setSignedIn] = useState<boolean>(false);
   const [activeChat, setActiveChat] = useState<number | null>(null);
-
-  useEffect(() => {
-    const ws = new WebSocket("ws://localhost:3002");
-    console.log("WebSocket Connected");
-
-    return () => {
-      ws.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setSignedIn(true);
-      } else {
-        setSignedIn(false);
-      }
-    })
-  });
   
   return (
     <main className="root-page-element flex items-center justify-center w-full">

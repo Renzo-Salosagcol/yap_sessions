@@ -98,7 +98,7 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
 
     const newChatData = new FormData(event.currentTarget)
     const data = JSON.stringify({
-      title: newChatData.get('title'),
+      name: newChatData.get('name'),
       members: newChatData.get('members'),
     })
 
@@ -197,8 +197,8 @@ export function AppSidebar({ activeChat, setActiveChat }: { activeChat: number |
                   <FieldSet>
                     <FieldGroup>
                       <Field>
-                        <FieldLabel htmlFor="title">Chat Title</FieldLabel>
-                        <Input id="title" name="title" type="text" className="col-span-3" required/>
+                        <FieldLabel htmlFor="name">Chat Name</FieldLabel>
+                        <Input id="name" name="name" type="text" className="col-span-3" required/>
                       </Field>
                     </FieldGroup>
                     <FieldGroup>
